@@ -10,8 +10,9 @@ namespace SimpleLocalizator {
 		#region Data
 		[SerializeField] bool autoDetectLanguage=true;
 		[SerializeField] Language defaultLanguage = Language.Russian;
-		[SerializeField] Language _currentLang;
-		static string _loc = string.Empty;
+		[SerializeField] Language _currentLang=Language.Russian;
+
+        static Language currentGlobalLang = Language.Russian;
 		static LanguageManager _instance;
 		static LanguageManager instance {
 			get {
@@ -36,14 +37,23 @@ namespace SimpleLocalizator {
 		}
 
         static bool initLang = false;
-		#endregion
+        #endregion
 
-		#region Interface
-		public static string loc {
-			get {
-				return _loc;
-			}
-		}
+        #region Interface
+        public void SetEnglishLang()
+        {
+            currentLang = Language.English;
+        }
+
+        public void SetRussianLang()
+        {
+            currentLang = Language.Russian;
+        }
+
+        public void SetKazakhLang()
+        {
+            currentLang = Language.Kazakh;
+        }
 
 		public static Language currentLang {
 			get {
@@ -51,9 +61,10 @@ namespace SimpleLocalizator {
 			}
 			set {
                 Debug.Log("LanguageManager: language " + value);
-				instance._currentLang = value;
+                currentGlobalLang = value;
                 initLang = true;
-				if (onLanguageChanged != null)
+                instance._currentLang = value;
+                if (onLanguageChanged != null)
 					onLanguageChanged ();
 			}
 		}
@@ -116,11 +127,12 @@ namespace SimpleLocalizator {
 		}
 
 		void Start() {
-			if (autoDetectLanguage && !initLang) {
-				currentLang = GetSystemLanguage ();
-			} else {
-				currentLang = currentLang;
-			}
+            if (initLang) {
+                currentLang = currentGlobalLang;
+            }
+            else {
+                currentLang = autoDetectLanguage ? GetSystemLanguage() : currentLang;
+            }
 			Debug.Log ("LanguageManager: initialized. Current language: " + currentLang);
 		}
 		#endregion
