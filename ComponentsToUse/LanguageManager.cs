@@ -131,9 +131,9 @@ namespace SimpleLocalizator {
                 currentLang = currentGlobalLang;
             }
             else {
-                currentLang = autoDetectLanguage ? GetSystemLanguage() : currentLang;
+                currentLang = autoDetectLanguage ? GetSystemLanguage() : defaultLanguage;
+                Debug.Log("LanguageManager: initialized. Current language: " + currentLang);
             }
-			Debug.Log ("LanguageManager: initialized. Current language: " + currentLang);
 		}
 		#endregion
 	}
