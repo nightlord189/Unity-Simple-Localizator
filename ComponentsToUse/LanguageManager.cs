@@ -121,9 +121,7 @@ namespace SimpleLocalizator {
 		void OnEnable() {
 			if (_instance == null) {
 				instance = this;
-			} else if (instance != this) {
-				Destroy (this);
-			}
+			} 
 		}
 
 		void Start() {
