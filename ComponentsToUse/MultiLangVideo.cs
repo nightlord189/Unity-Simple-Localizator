@@ -9,15 +9,17 @@ using UnityEngine.Video;
 namespace SimpleLocalizator
 {
     [System.Serializable]
-    public struct SwitchVideo
+    public class SwitchVideo
     {
         public Language lang;
         public VideoClip clip;
+        public string url;
 
         public SwitchVideo(Language l, VideoClip cl)
         {
             this.lang = l;
             this.clip = cl;
+            this.url = string.Empty;
         }
     }
 
@@ -69,21 +71,23 @@ namespace SimpleLocalizator
             }
         }
 
-        VideoClip GetCurrentVideo()
+        SwitchVideo GetCurrentVideo()
         {
             for (int i = 0; i < translations.Count; i++)
             {
                 if (translations[i].lang == currentLanguage)
                 {
-                    return translations[i].clip;
+                    return translations[i];
                 }
             }
             return null;
         }
 
-        protected virtual void Refresh(VideoClip Video)
+        protected virtual void Refresh(SwitchVideo video)
         {
-            source.clip = Video;
+            source.source = video.clip != null ? VideoSource.VideoClip : VideoSource.Url;
+            source.clip = video.clip;
+            source.url = video.url;
         }
 
         public void OnValidate()
