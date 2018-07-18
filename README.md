@@ -1,7 +1,7 @@
 # Unity Simple Localizator
 Simple localization plugin for Unity3D game engine.
 
-[Download link](https://github.com/alexdebur/Unity-Simple-Localizator/releases/download/1.5/SimpleLocalizator-1.5.unitypackage)
+[Download link](https://github.com/alexdebur/Unity-Simple-Localizator/releases)
 
 ## Quick start
 #### 1. [Download](https://github.com/alexdebur/Unity-Simple-Localizator/releases) and import package to your project (Assets->Import Package->Custom Package).
