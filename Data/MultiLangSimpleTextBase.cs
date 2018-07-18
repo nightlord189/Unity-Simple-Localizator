@@ -11,6 +11,7 @@ namespace SimpleLocalizator
     public struct SwitchText
     {
         public Language lang;
+        [TextArea(3, 10)]
         public string text;
 
         public SwitchText(Language l, string s) 

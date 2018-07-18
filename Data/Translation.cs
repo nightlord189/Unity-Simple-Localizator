@@ -5,6 +5,7 @@ namespace SimpleLocalizator {
 	[System.Serializable]
 	public struct Translation {
 		public Language key;
+		[TextArea(3, 10)]
 		public string value;
 
         public Translation(Language key)
