@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/*SimpleLocalizator plugin
+ * Developed by NightLord189 (nldevelop.com)*/
+
+using UnityEngine;
 
 namespace SimpleLocalizator
 {

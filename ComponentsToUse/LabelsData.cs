@@ -64,6 +64,13 @@ namespace SimpleLocalizator {
             {
                 labels[i].InitTranslations();
             }
+	        for (int i = 0; i < labels.Count; i++)
+	        {
+		        if (i > 0 && labels[i].id<=labels[i-1].id)
+		        {
+			        labels[i].id = labels[i - 1].id + 1;
+		        }
+	        }
         }
 		#endif
 

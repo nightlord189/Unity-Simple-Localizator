@@ -4,39 +4,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.Video;
+using UnityEngine.UI;
 
 namespace SimpleLocalizator
 {
-    [System.Serializable]
-    public class SwitchVideo
-    {
-        public Language lang;
-        public VideoClip clip;
-        public string url;
-
-        public SwitchVideo(Language l, VideoClip cl)
-        {
-            this.lang = l;
-            this.clip = cl;
-            this.url = string.Empty;
-        }
-    }
-
-    [RequireComponent(typeof(VideoPlayer))]
-    public class MultiLangVideo : MonoBehaviour
+    [RequireComponent(typeof(RawImage))]
+    public class MultiLangRawImage : MonoBehaviour
     {
         #region Unity scene settings
-        [SerializeField] List<SwitchVideo> translations = new List<SwitchVideo>();
+        [SerializeField] List<SwitchTexture> translations = new List<SwitchTexture>();
         #endregion
 
         #region Data
-        VideoPlayer _source;
+        RawImage _source;
 
-        public VideoPlayer source {
+        public RawImage source {
             get {
                 if (_source == null)
-                    _source = GetComponent<VideoPlayer>();
+                    _source = GetComponent<RawImage>();
                 return _source;
             }
         }
@@ -50,7 +35,7 @@ namespace SimpleLocalizator
             set {
                 //oldLanguage = currentLanguage;
                 _currentLanguage = value;
-                Refresh(GetCurrentVideo());
+                Refresh(GetCurrentTexture());
             }
         }
         #endregion
@@ -61,46 +46,37 @@ namespace SimpleLocalizator
             if (translations == null || translations.Count <= 0)
             {
                 if (translations == null)
-                    translations = new List<SwitchVideo>();
+                    translations = new List<SwitchTexture>();
                 else translations.Clear();
                 Language[] langs = (Language[])Enum.GetValues(typeof(Language));
                 for (int i = 0; i < langs.Length; i++)
                 {
-                    translations.Add(new SwitchVideo(langs[i], null));
+                    translations.Add(new SwitchTexture(langs[i], null));
                 }
             }
         }
 
-        SwitchVideo GetCurrentVideo()
+        Texture GetCurrentTexture()
         {
             for (int i = 0; i < translations.Count; i++)
             {
                 if (translations[i].lang == currentLanguage)
                 {
-                    return translations[i];
+                    return translations[i].texture;
                 }
             }
             return null;
         }
 
-        protected virtual void Refresh(SwitchVideo video)
+        protected virtual void Refresh(Texture texture)
         {
-            source.clip = video.clip;
-            if (!source.url.Equals(video.url))
-                source.url = video.url;
-            if (video.clip==null && !string.IsNullOrEmpty(video.url))
-            {
-                source.source = VideoSource.Url;
-            }
-            else
-            {
-                source.source = VideoSource.VideoClip;
-            }
+            source.texture = texture;
         }
 
         public void OnValidate()
         {
-            currentLanguage = _currentLanguage;
+            if (!Application.isPlaying)
+                currentLanguage = _currentLanguage;
         }
 
         void OnEnable()

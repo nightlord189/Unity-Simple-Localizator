@@ -20,6 +20,11 @@ namespace SimpleLocalizator {
 			    Refresh();
 			}
 		}
+
+		public void SetLabelId(int id)
+		{
+			labelID = id;
+		}
         #endregion
 
         #region Methods

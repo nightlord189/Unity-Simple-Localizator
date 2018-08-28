@@ -26,7 +26,7 @@ namespace SimpleLocalizator {
 			object current = null;
 			for (int i = 1; i < strings.Length; i++) {
 				try {
-					current = Enum.Parse (typeof(SystemLanguage), strings [i], true);
+					current = Enum.Parse (typeof(Language), strings [i], true);
 					if (current != null) {
 						result.Add ((Language)current);
 					}
